@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 
 //importar rutas
-//...
+const authRoutes = require('./router/auth')
 
 //configurar body parser
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,7 +20,7 @@ app.use(express.static("uploads"));
 
 
 //configurar rutas
-//...
+app.use('/api/v1', authRoutes);
 
 
 module.exports = app;
