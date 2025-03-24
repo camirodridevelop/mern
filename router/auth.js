@@ -5,5 +5,7 @@ const api = express.Router();
 
 //rutas
 api.post('/auth/register', AuthController.register);
+api.post("/auth/login", AuthController.login);
+
 
 module.exports = api;
