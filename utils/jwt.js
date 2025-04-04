@@ -1,5 +1,5 @@
-const jwt = requiere("jsonwebtoken");
-require("dotenv"). config();
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 function createAccessToken (user){
@@ -8,9 +8,9 @@ function createAccessToken (user){
     expToken.setHours(expToken.getHours()+3);
 
     //la informacion del usuario
-    const playload = {
-        token_typre: "access",
-        user_id : user._id,
+    const payload = {
+        token_type: "access",
+        user_id: user._id,
         iat: Date.now(),
         exp: expToken.getTime(),
     };

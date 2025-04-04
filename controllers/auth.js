@@ -54,7 +54,7 @@ async function login(req, res) {
 
     //validar los datos
     if (!email) return res.status(400).send({ msg: "El email es obligatorio"});
-    if (!password) return res.status(400).send({ msg: "La contrasena es obligatoria"});
+    if (!password) res.status(400).send({ msg: "La contrasena es obligatoria"});
 
     //validar si existe el usuario finOne
     try{
@@ -88,5 +88,5 @@ async function login(req, res) {
 
 module.exports = {
     register,
-    login,
+    login
 };

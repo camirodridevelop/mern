@@ -9,3 +9,5 @@ api.post("/auth/login", AuthController.login);
 
 
 module.exports = api;
+
+//en el router se ejecutan los controladores
