@@ -20,7 +20,7 @@ function mdAuth(req, res, next){
        
         //verificar fecha de expiracion 
         const { exp } = payload;
-        const currentData = new Date().getTime(); 
+        const currentData = new Date().getTime() / 1000; 
         
         //si el token no ha expirado
         //pregunto se la fecha de exp el igual o superior a la fecha del token
@@ -39,7 +39,7 @@ function mdAuth(req, res, next){
     
    // next();
 
-   
+
 }
 module.exports ={
     mdAuth,
