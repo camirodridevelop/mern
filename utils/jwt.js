@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
+//crea el token
 function createAccessToken (user){
     //fecha de vencimiento-expiracion
     const expToken = new Date();
@@ -19,4 +20,12 @@ function createAccessToken (user){
 return jwt.sign(payload, JWT_SECRET_KEY);
 };
 
-module.exports = {createAccessToken};
+//obtener los datos del token
+function decode(token){
+    return jwt.decode(token, JWT_SECRET_KEY, true)
+}
+
+module.exports = {
+    createAccessToken,
+    decode,
+};
