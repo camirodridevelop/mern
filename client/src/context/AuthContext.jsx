@@ -1,54 +1,58 @@
-import { useState, createContext } from 'react';
+import { useState, useEffect, createContext } from 'react';
 import { getMeFetch } from '../api/getMeFetch';
-import { useEffect } from 'react';
+
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-	// usuario estatico (de momento no existe)
+	// usuario logueado (null si no hay sesión)
 	const [user, setUser] = useState(null);
-	//loading
+	// mientras se comprueba si hay una sesión guardada
 	const [loading, setLoading] = useState(true);
 
-	//relogin
-	useEffect(() => {
-
-		(async () =>{ 
-		const token = localStorage.getItem("token");
-		await login (token);
-		setLoading(false);
-		})();
-
-	 },[]);
-
-	// los datos para utilizar en todo el sitio web login
-	const login = async (token) =>{
+	// obtiene los datos del usuario a partir del token
+	const login = async (token) => {
 		try {
 			const user = await getMeFetch(token);
 			delete user.password;
-			setUser (user);
-		} catch(error){
-			console.log(error);
+			setUser(user);
+		} catch (error) {
+			// token inválido o vencido: se limpia la sesión guardada
+			localStorage.removeItem('token');
+			setUser(null);
+			throw error;
 		}
 	};
 
-//logout
-	const logout = ( ) => {
-		setUser(false)
-		localStorage.clear()
+	// al abrir el sitio, restaura la sesión si hay un token guardado
+	useEffect(() => {
+		(async () => {
+			const token = localStorage.getItem('token');
+			if (token) {
+				try {
+					await login(token);
+				} catch (error) {
+					console.log(error);
+				}
+			}
+			setLoading(false);
+		})();
+	}, []);
+
+	// cerrar sesión
+	const logout = () => {
+		setUser(null);
+		localStorage.removeItem('token');
 	};
 
 	if (loading) return null;
 
-	//los datos para utilizar en todo el sitio web lo exportamos
-	const data ={
+	// los datos que se comparten en todo el sitio web
+	const data = {
 		user,
 		setUser,
 		login,
 		logout,
 	};
 
-	
-
-	// el contexto
 	return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
 };
