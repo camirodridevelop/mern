@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { registerFech } from '../api/registerFecth';
 
@@ -7,10 +7,10 @@ const RegisterForm = () => {
 	datos del formulario
    */
 	const [formData, setFormData] = useState({
-		firstname: 'Mónica',
-		lastname: 'Gómez',
-		email: 'monica@test.com',
-		password: 'monica123456',
+		firstname: '',
+		lastname: '',
+		email: '',
+		password: '',
 	});
 
 	/* 
@@ -36,11 +36,11 @@ const RegisterForm = () => {
 		// data
 		try{
 			const res = await registerFech(formData);
-			setSuccess(resizeBy.msg);
+			setSuccess(res.msg);
 			setError("");
 		} catch (error) {
 			setSuccess("");
-			setError(error.msg);
+			setError(error.msg || 'Error de servidor');
 		}
 	};
 

@@ -13,8 +13,8 @@ const LoginForm = () => {
 	datos del formulario
    */
 	const [formData, setFormData] = useState({
-		email: 'yara@test.com',
-		password: '123456',
+		email: '',
+		password: '',
 	});
 
 	/* 
@@ -36,17 +36,15 @@ const LoginForm = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try{
-			const {access_token} = await loginFech(formData);
-			login(access_token);
+			const { access_token } = await loginFech(formData);
+			await login(access_token);
 
 			//mantener la sesion con localstorage
-			localStorage.setItem("token" ,access_token);
+			localStorage.setItem("token", access_token);
 			setError("");
 			navigate("/home");
-		 		 
-		} catch (error){ 
-		console.log(error)
-		setError("Error de servidor");
+		} catch (error) {
+			setError(error.msg || "Error de servidor");
 		}
 	};
 
