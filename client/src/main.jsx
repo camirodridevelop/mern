@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import AppRouter from './router';
+import AppRouter from './router/Index';
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
 import { AuthProvider } from './context/AuthContext';
