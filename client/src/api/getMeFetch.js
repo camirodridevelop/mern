@@ -1,20 +1,14 @@
-export const getMeFetch = async(token) =>{
-    try{
-        const url = "http://localhost:3977/api/v1/user/me";
-        const params = {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
+import { API_URL } from "./config";
 
-        const response = await fetch(url, params);
-        const result = await response.json();
+export const getMeFetch = async (token) => {
+	const response = await fetch(`${API_URL}/user/me`, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${token}`,
+		},
+	});
+	const result = await response.json();
 
-        if(response.status !== 200) throw result;
-
-        return result;
-    } catch(error) {
-        throw error;
-    };
+	if (response.status !== 200) throw result;
+	return result;
 };

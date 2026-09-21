@@ -1,22 +1,15 @@
+import { API_URL } from "./config";
+
 export const loginFech = async (data) => {
-    try{
-        const url =" http://localhost:3977/api/v1/auth/login";
+	const response = await fetch(`${API_URL}/auth/login`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify(data),
+	});
+	const result = await response.json();
 
-        const params = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        };
-
-        const response = await fetch(url, params);
-        const result = await response.json();
-       
-
-        if(response.status !== 200) throw result;
-        return result;
-    } catch(error) {
-        throw error;
- };
+	if (response.status !== 200) throw result;
+	return result;
 };
