@@ -1,0 +1,12 @@
+# dependencias
+node_modules/
+
+# variables de entorno (contienen credenciales)
+.env
+.env.*
+!.env.example
+
+# build y archivos del sistema
+dist/
+.DS_Store
+*.log
